@@ -5,7 +5,7 @@
 
 #define MAX_NUMBER_OF_EVENTS 32
 
-typedef std::function<void()> TimerEventHandler;
+typedef void (*TimerEventHandler)();
 
 class TimerEvent {
 
@@ -24,8 +24,8 @@ public:
 
     void execute() { if (onExecutePtr != nullptr) onExecutePtr(); }
     void finish() { if (onFinishPtr != nullptr) onFinishPtr(); }
-    void setEventCallback(TimerEventHandler cbPtr) { onExecutePtr = cbPtr; }
-    void setFinishCallback(TimerEventHandler cbPtr) { onFinishPtr = cbPtr; }
+    void setEventCallback(TimerEventHandler &cbPtr) { onExecutePtr = cbPtr; }
+    void setFinishCallback(TimerEventHandler &cbPtr) { onFinishPtr = cbPtr; }
     void enable() { isEnabled = true; }
     void disable() { isEnabled = false; }
 };
